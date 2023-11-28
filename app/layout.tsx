@@ -9,6 +9,7 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
+import Header from "@/components/header"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,26 +24,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider afterSignInUrl="/" afterSignUpUrl="/onboarding">
-      <html lang="ja">
-        <body>
-          <SignedIn>
-          {/* ログイン中に表示されるブロック */}
-          <UserButton />
-          </SignedIn>
-          <SignedOut>
-          {/* ログアウト中に表示されるブロック */}
-          <SignInButton />
-          <SignUpButton />
-          </SignedOut>
-          <div>
-            {children}
-          </div>
-          <a href={process.env.NEXT_PUBLIC_CLERK_USER_PROFILE as string} target="_blank">
-            アカウント設定
-          </a>
-        </body>
-      </html>
-    </ClerkProvider>
+    <ClerkProvider>
+  <body lang="ja">
+    <Header />
+    <main>{children}</main>
+  </body>
+</ClerkProvider>
   )
 }
